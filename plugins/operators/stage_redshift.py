@@ -13,7 +13,7 @@ class StageToRedshiftOperator(BaseOperator):
         SECRET_ACCESS_KEY '{}'
         region 'us-west-2'
         compupdate off
-        json {};
+        json '{}';
     """
     ui_color = '#358140'
 
@@ -59,8 +59,8 @@ class StageToRedshiftOperator(BaseOperator):
         self.log.info("Copying data from S3 to Redshift")
         rendered_key = self.s3_key.format(**context)
         s3_path = "s3://{}/{}".format(self.s3_bucket, rendered_key)
-        self.log.info("s3_path is {}".format(s3_key))
-        formatted_sql = S3ToRedshiftOperator.copy_sql.format(
+        self.log.info("s3_path is {}".format(self.s3_key))
+        formatted_sql = StageToRedshiftOperator.copy_sql.format(
             self.table,
             s3_path,
             credentials.access_key,
@@ -70,5 +70,5 @@ class StageToRedshiftOperator(BaseOperator):
         redshift.run(formatted_sql)
         CountRecords="""Select COUNT(*) from {}""".format(self.table)
         Records = redshift.get_first(CountRecords)[0]
-        self.log.info("Records loaded from S3 to {} table are {}.".format(self.table,Records))
+        self.log.info("{}, Records loaded from S3 to table {}.".format(Records, self.table))
 
