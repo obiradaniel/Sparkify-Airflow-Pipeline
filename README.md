@@ -8,10 +8,9 @@ A music streaming startup (Sparkify) stores all it's key event data on S3.
 The data is well structured as a Data Lake with json files.
 
 This project implements an Airflow managed ETL pipeline to extract data from S3, then load it to Redshift, with data quality checks.
-The pipeline is split into tasks that are managed by Airflow and data is backfilled,
-by running a day at a time for the required backfilling of one month.
+The pipeline is split into tasks that are managed by Airflow and data is backfilled, by running a day at a time for the required backfilling of one month.
 
-The whole project is based on Airflow and custom hooks and operators for AWS, RedShift, S3..
+The whole project is based on Airflow and custom hooks and operators for AWS, RedShift (PostgreS), S3.
 ***
 ## Contents: 
 1. Data to be used: the data is stored in a S3 Bucket for Udacity
@@ -43,9 +42,21 @@ another to create the whole pipeline.
 ### 5. Turn on Sparkify DAG on Airflow Web UI and monitor execution.
 ### 6. Wait for your Data!!!, then delete RedShift Cluster.
 
-## Dag Overview in Airflow
-![Dag Image](/home/obiradaniel/airflow/dags/Sparkify-Airflow-Pipeline/1_Sparkify_DAG.png)
+## Dag Graph Overview in Airflow
+![Dag Image](https://raw.githubusercontent.com/obiradaniel/Sparkify-Airflow-Pipeline/main/1_Sparkify_DAG.png)
 
+## Sparkify Redshift DW Schema (DB Beaver)
+![Dag Image](https://raw.githubusercontent.com/obiradaniel/Sparkify-Airflow-Pipeline/main/2_schema_redshift_DW.png)
+
+## Sparkify DAG RUN (SQL in validate was updated)
+![Dag Image](https://raw.githubusercontent.com/obiradaniel/Sparkify-Airflow-Pipeline/main/3_Sparkify_DAG_run.png)
+
+## Dag Graph Overview in Airflow after Successful Run 
+## (SQL in validate was updated)
+![Dag Image](https://raw.githubusercontent.com/obiradaniel/Sparkify-Airflow-Pipeline/main/4_Sparkify_DAG_successful_run.png)
+
+## Red Shift Query
+![Dag Image](https://raw.githubusercontent.com/obiradaniel/Sparkify-Airflow-Pipeline/main/5_redshift_query.png)
 
 
 ### ***Obira Daniel, November 2022***
