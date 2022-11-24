@@ -131,13 +131,15 @@ load_time_dimension_table = LoadDimensionOperator(
     overwrite=True
 )
 
+redshift_database_name = "odengetst"
 run_quality_checks = DataQualityOperator(
+    ##Specify the database name
     task_id='Run_data_quality_checks',
     dag=dag,
     redshift_conn_id="redshift",
-    sql_tests= [{'sql': '''SELECT count(*) FROM public."time" where 'year' = 2022;''',
+    sql_tests= [{'sql': '''SELECT count(*) FROM {}.public.time where year = 2022;'''.format(redshift_database_name),
                  'result': 0 },
-                {'sql': '''SELECT MAX('year') FROM public."time";''',
+                {'sql': '''SELECT MAX(year) FROM {}.public.time;'''.format(redshift_database_name),
                  'result': 2018 }]
 )
 

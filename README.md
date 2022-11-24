@@ -14,7 +14,7 @@ by running a day at a time for the required backfilling of one month.
 The whole project is based on Airflow and custom hooks and operators for AWS, RedShift, S3..
 ***
 ## Contents: 
-1. Data to be used: the data is stored in a S3 Bucket
+1. Data to be used: the data is stored in a S3 Bucket for Udacity
     1. Listening events for it's streaming data as JSON logfiles.
     2. Song data for all tracks available on it's service as JSON files. 
     
@@ -32,14 +32,19 @@ Initializes all the sub-tasks and creates dependencies thus connects tasks to
 another to create the whole pipeline.
 
 ***
-### To run
+### To run (For a local Setup, not the Udacity Environment)
 ### 1. update 'dwh.cfg' with the right AWS credentials and required RedShift settings
-### 2. then create and start redshift cluster with create_redshift.py module
-### 3. Start Airflow Webserver and scheduler with all the files in the dag folder
+### 2. The create and start redshift cluster with create_redshift.py module, 
+###     update path to folder for sys.path accordingly
+### 3. Start Airflow Webserver and scheduler with all the files in the dag folder, 
+###    connect the cluster to PostGres or another RDMS
+###    to enable parallel execution (won't happen on SQLite)
 ### 4. Create and test all Airflow connections to AWS, RedShift
-### 5. Turn on Sparkify DAG on Airflow Web UI.
-### 6. Wait for your Data!!!.
+### 5. Turn on Sparkify DAG on Airflow Web UI and monitor execution.
+### 6. Wait for your Data!!!, then delete RedShift Cluster.
 
+## Dag Overview in Airflow
+![Dag Image](/home/obiradaniel/airflow/dags/Sparkify-Airflow-Pipeline/1_Sparkify_DAG.png)
 
 
 
