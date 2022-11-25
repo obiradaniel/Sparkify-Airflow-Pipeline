@@ -49,4 +49,6 @@ class DataQualityOperator(BaseOperator):
             
         if len(self.sql_tests) == 0:
             self.log.info("NO SQL Tests Provided")
+        else:
+            self.log.info("All {} SQL Tests Passed.".format(len(self.sql_tests)))
                 
