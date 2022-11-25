@@ -33,20 +33,20 @@ class DataQualityOperator(BaseOperator):
         #self.log.info('DataQualityOperator not implemented yet')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         
-        i = 0
-        for test in self.sql_tests:
-            i+=1
+        for i, test in enumerate(self.sql_tests):
             keys = list(test.keys())
-            query = test[keys[0]]
+            query = test[keys[0]] # Query should have a one line result
             value = test[keys[1]]
             red_shift_value = redshift.get_first(query)[0]
+            test_no = i + 1 # enumerate starts from 0, thus the ith test will 
+            #be i+1
             
             if value == red_shift_value:
-                self.log.info("SQLTest {}, {} expecting {}, got {}, PASSED.".format(i, query, value, red_shift_value))
+                self.log.info("SQLTest {}: {} expecting {}, got {}: PASSED.".format(test_no, query, value, red_shift_value))
             else:
-                self.log.info("SQLTest {}, {} expecting {}, got {}, FAILED.".format(i, query, value, red_shift_value))
-                raise ValueError("SQLTest {}, {} expected {}, got {}, FAILED.".format(i, query, value, red_shift_value))
+                self.log.info("SQLTest {}: {} expecting {}, got {}: FAILED.".format(test_no, query, value, red_shift_value))
+                raise ValueError("SQLTest {}: {} expected {}, got {}: FAILED.".format(test_no, query, value, red_shift_value))
             
         if len(self.sql_tests) == 0:
-            elf.log.info("NO SQL Tests Provided")
+            self.log.info("NO SQL Tests Provided")
                 

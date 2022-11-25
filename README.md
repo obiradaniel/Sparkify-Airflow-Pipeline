@@ -31,10 +31,20 @@ Initializes all the sub-tasks and creates dependencies thus connects tasks to
 another to create the whole pipeline.
 
 ***
+Made these changes after good technical feedback from the reviewer:
+ 1. Changed DAG schedule to hourly
+ 2. Used lists to group task dependencies for upstream and down stream tasks 
+    instead of individually task by next task.
+ 3. Updated the Data Quality Operator to use enumerate() instead 
+    of separately tracking the test index in the whole set of tests.
+    Changed elf.log to self.log for logging if no tests were provided.
+    Improved Logging if all tests passed.
+
+***
 ### To run (For a local Setup, not the Udacity Environment)
 ### 1. update 'dwh.cfg' with the right AWS credentials and required RedShift settings
-### 2. The create and start redshift cluster with create_redshift.py module, 
-###     update path to folder for sys.path accordingly
+### 2. Then create and start redshift cluster with create_redshift.py module, 
+###     update path to folder for sys.path accordingly for the DAG.
 ### 3. Start Airflow Webserver and scheduler with all the files in the dag folder, 
 ###    connect the cluster to PostGres or another RDMS
 ###    to enable parallel execution (won't happen on SQLite)
